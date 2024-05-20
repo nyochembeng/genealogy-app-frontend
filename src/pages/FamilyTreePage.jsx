@@ -1,6 +1,6 @@
 import React from 'react';
 import FamilyTree from 'react-family-tree';
-import Node from './Node'; // Create a Node component to represent each family member
+import Node from '../components/Node'; // Create a Node component to represent each family member
 
 const FamilyTreePage = ({ members }) => {
   return (
