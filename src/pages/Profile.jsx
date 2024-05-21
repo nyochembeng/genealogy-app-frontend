@@ -1,7 +1,9 @@
-import React, {axios, useEffect, useState} from "react";
+import React, { useEffect, useState} from "react";
+import axios from 'axios'; // Assuming you're using axios for API calls
 import { useAuth0 } from "@auth0/auth0-react";
 import { Grid, Paper } from "@material-ui/core";
 import ProfileSidebar from "../components/ProfileSidebar";
+import config from '../config.json'
 
 const Profile = () => {
   const { member, isAuthenticated, isLoading } = useAuth0();
@@ -11,7 +13,7 @@ const Profile = () => {
   const getUserData = async () => {
     const accessToken = localStorage.getItem('accessToken');
     try {
-      const response = await axios.get(`${process.env.API_URL}/members/:memberId`, {
+      const response = await axios.get(`${config.apiUrl}/members/:memberId`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       setUserData(response.data); // User data
@@ -32,7 +34,7 @@ const Profile = () => {
   }
 
   return (
-    isAuthenticated && (
+    userData && (
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4} md={3}>
           <Paper style={{ padding: 16 }}>

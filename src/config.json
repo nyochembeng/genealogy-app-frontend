@@ -1,0 +1,7 @@
+{
+    "apiUrl": "http://localhost:5000/api",
+    "auth0Domain": "https://dev-kai1hleop44lhpz3.us.auth0.com",
+    "auth0ClientId": "WwXoJ3afmb3owuJVOWQIz4MmRID4Fgzh",
+    "auth0ClientSecret": "dsehR1i6qhafbjqgnDj2rH867ZdtxeCAedy21VRPV3wENzEO4AmUAwPZDr3eA1Gl",
+    "auth0RedirectUri": "https://127.0.0.1:3000/login"
+}
