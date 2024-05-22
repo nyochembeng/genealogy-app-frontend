@@ -1,14 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-// import Auth0ProviderWithNavigate from "./services/Auth0ProviderWithNavigate";
-import "./styles/main.scss"; // Ensure you have some basic styles
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import { ThemeProvider } from '@material-ui/core/styles'; // Import for Material UI theming
+import theme from './theme'; // Import your custom Material UI theme (optional)
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    {/* <Auth0ProviderWithNavigate> */}
-      <App />
-    {/* </Auth0ProviderWithNavigate> */}
-  </React.StrictMode>
+  <ThemeProvider theme={theme}> {/* Wrap App with ThemeProvider (optional) */}
+    <App />
+  </ThemeProvider>
 );

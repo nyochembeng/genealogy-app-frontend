@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, TextField, Button, Snackbar } from '@material-ui/core'; // Import Snackbar for notifications
-import Alert from '@material-ui/lab/Alert'; // Import Alert for Snackbar content
+// import Alert from '@material-ui/lab/Alert'; // Import Alert for Snackbar content
 import axios from 'axios';
 import config from '../config.json'
 
@@ -58,7 +58,7 @@ const UserSettings = ({ user }) => {
         autoHideDuration={6000} // Close Snackbar after 6 seconds
         onClose={handleSnackbarClose}
       >
-        <Alert severity={snackbarSeverity}>{snackbarMessage}</Alert>
+        {/* <Alert severity={snackbarSeverity}>{snackbarMessage}</Alert> */}
       </Snackbar>
     </Grid>
   );

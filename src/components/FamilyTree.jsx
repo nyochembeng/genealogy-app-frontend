@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Tree } from 'react-family-tree'; // Import React Family Tree
+import { FamilyTree } from 'react-family-tree'; // Import React Family Tree
 import axios from 'axios';
+import config from '../config.json'
 
-const FamilyTree = ({ familyId }) => {
+const Tree = ({ familyId }) => {
   const [members, setMembers] = useState([]);
 
   useEffect(() => {
     const fetchFamilyMembers = async () => {
       try {
-        const response = await axios.get(`/api/families/${familyId}`);
+        const response = await axios.get(`${config.apiUrl}/family/${familyId}`);
         const familyMembers = response.data.members;
         setMembers(familyMembers);
       } catch (error) {
@@ -21,7 +22,7 @@ const FamilyTree = ({ familyId }) => {
 
   const getNodeData = async (memberId) => {
     try {
-      const response = await axios.get(`/api/users/${memberId}`); // Fetch detailed user data
+      const response = await axios.get(`${config.apiUrl}/user/${memberId}`); // Fetch detailed user data
       return {
         // Extract relevant data from user response
         name: response.data.firstName + ' ' + response.data.lastName,
@@ -35,7 +36,7 @@ const FamilyTree = ({ familyId }) => {
   };
 
   return (
-    <Tree
+    <FamilyTree
       nodes={members.map((member) => ({
         id: member._id, // Use member's ID as unique identifier
         data: getNodeData(member._id), // Fetch data asynchronously using getNodeData
@@ -45,4 +46,4 @@ const FamilyTree = ({ familyId }) => {
   );
 };
 
-export default FamilyTree;
+export default Tree;

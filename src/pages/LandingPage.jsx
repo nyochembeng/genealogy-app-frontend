@@ -1,40 +1,51 @@
-import React from "react";
-import { Container, Typography, Button } from "@material-ui/core";
-import { useAuth0 } from "@auth0/auth0-react";
-import { login } from "../services/authService";
-import "../styles/landingPage.scss";
+import React from 'react';
+import { Grid, Typography, Button, makeStyles } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import backgroundImage from '../assets/family-background.jpg'; // Replace with your image path
+
+const useStyles = makeStyles((theme) => ({
+  hero: {
+    backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: theme.palette.getContrastText(theme.palette.primary.main), // Set text color based on background
+  },
+  title: {
+    fontSize: '4rem',
+    fontWeight: 'bold',
+    marginBottom: theme.spacing(4),
+  },
+  subtitle: {
+    fontSize: '1.5rem',
+    marginBottom: theme.spacing(4),
+  },
+}));
 
 const LandingPage = () => {
-  const { loginWithRedirect } = login();
+  const classes = useStyles();
 
   return (
-    <Container className="landing-page">
-      <header className="landing-header">
-        <img src="../assets/genealogy-logo.png" alt="Family Tree Logo" className="logo" />
-        <Typography variant="h2">Welcome to the Family Tree App</Typography>
-        <Typography variant="h6">
-          Connect with your family, share stories, and explore your heritage.
+    <Grid container className={classes.hero}>
+      <Grid item xs={12}>
+        <Typography variant="h2" className={classes.title}>
+          Explore Your Family History
         </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => loginWithRedirect()}
-        >
-          Login / Sign Up
+        <Typography variant="body1" className={classes.subtitle}>
+          Connect with your roots and discover your ancestors' stories.
+        </Typography>
+        <Button variant="contained" color="primary" component={Link} to="/login">
+          Login
         </Button>
-      </header>
-      <div className="landing-content">
-        <img
-          src="https://randomuser.me/api/portraits/men/32.jpg"
-          alt="Family"
-          className="landing-image"
-        />
-        <Typography variant="body1">
-          Discover your family's history, connect with relatives, and keep
-          memories alive.
-        </Typography>
-      </div>
-    </Container>
+        <Button variant="contained" color="secondary" component={Link} to="/signup">
+          Sign Up
+        </Button>
+      </Grid>
+    </Grid>
   );
 };
 

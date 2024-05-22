@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Card, CardContent, Typography, Avatar } from '@material-ui/core';
 import axios from 'axios';
+import config from '../config.json'
 
 const MemberDetails = ({ memberId }) => {
   const [member, setMember] = useState({});
@@ -8,7 +9,7 @@ const MemberDetails = ({ memberId }) => {
   useEffect(() => {
     const fetchMemberDetails = async () => {
       try {
-        const response = await axios.get(`/api/users/${memberId}`);
+        const response = await axios.get(`${config.apiUrl}/user/${memberId}`);
         setMember(response.data);
       } catch (error) {
         console.error(error); // Handle errors appropriately

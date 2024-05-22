@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, TextField, Grid } from '@material-ui/core';
 import axios from 'axios'; // For API calls
+import config from '../config.json'
 
 const LoginForm = ({ onSubmit, type }) => {
   const [email, setEmail] = useState('');
@@ -9,7 +10,7 @@ const LoginForm = ({ onSubmit, type }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`/api/users/${type}`, { email, password }); // Login or Signup based on type
+      const response = await axios.post(`${config.apiUrl}/user/${type}`, { email, password }); // Login or Signup based on type
       onSubmit(response.data); // Pass user data or token to parent component
     } catch (error) {
       console.error(error); // Handle errors appropriately (e.g., display error message)

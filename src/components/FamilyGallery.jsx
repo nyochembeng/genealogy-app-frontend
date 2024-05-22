@@ -1,7 +1,10 @@
+//link to backend
+
 import React, { useState, useEffect } from 'react';
 import { Grid, Card, CardContent, Typography, IconButton } from '@material-ui/core';
 import { AddAPhoto } from '@material-ui/icons'; // Material UI Icon
 import axios from 'axios';
+import config from '../config.json'
 
 const FamilyGallery = ({ familyId }) => {
   const [photos, setPhotos] = useState([]);
@@ -9,7 +12,7 @@ const FamilyGallery = ({ familyId }) => {
   useEffect(() => {
     const fetchFamilyPhotos = async () => {
       try {
-        const response = await axios.get(`/api/families/${familyId}/photos`); // Assuming a dedicated photos endpoint
+        const response = await axios.get(`${config.apiUrl}/families/${familyId}/photos`); // Assuming a dedicated photos endpoint
         setPhotos(response.data);
       } catch (error) {
         console.error(error); // Handle errors appropriately
@@ -30,7 +33,7 @@ const FamilyGallery = ({ familyId }) => {
           <Grid item key={photo._id} xs={3}>
             <Card>
               <CardContent style={{ display: 'flex', justifyContent: 'center' }}>
-                <img src={photo.imageUrl} alt="Family Photo" style={{ width: '100%' }} />
+                <img src={photo.imageUrl} alt={`Family Pic ${photo._id}`} style={{ width: '100%' }} />
               </CardContent>
             </Card>
           </Grid>

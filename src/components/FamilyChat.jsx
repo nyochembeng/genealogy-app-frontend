@@ -1,31 +1,60 @@
-import React, { useEffect } from 'react';
-import Talk from 'talkjs';
+import React, { useState, useEffect } from 'react';
+import { Grid, TextField, Button, List, ListItem, ListItemText } from '@material-ui/core';
+import io from 'socket.io-client';
+import config from '../config.json'
 
-const Chat = ({ userId, familyId }) => {
+const FamilyChat = ({ familyId, user }) => {
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
+
+  // Implement real-time chat logic using your chosen chat library (e.g., Socket.IO)
+
   useEffect(() => {
-    Talk.ready.then(() => {
-      const me = new Talk.User({
-        id: userId,
-        name: "John Doe", // Replace with dynamic user name
-        email: "john.doe@example.com", // Replace with dynamic email
-        photoUrl: "https://randomuser.me/api/portraits/men/1.jpg", // Replace with dynamic profile pic
-        welcomeMessage: "Hello!",
-      });
-
-      window.talkSession = new Talk.Session({
-        appId: "your_talkjs_app_id",
-        me: me,
-      });
-
-      const conversation = window.talkSession.getOrCreateConversation(familyId);
-      conversation.setParticipant(me);
-
-      const chatbox = window.talkSession.createChatbox(conversation);
-      chatbox.mount(document.getElementById("talkjs-container"));
+    const socket = io(config.apiUrl); // Replace with your server address
+  
+    socket.on('receive-message', (message) => {
+      setMessages([...messages, message]);
     });
-  }, [userId, familyId]);
+  
+    // Handle sending messages using socket.emit('send-message', messageContent)
+  }, [familyId, messages]); ///\\\
 
-  return <div id="talkjs-container" style={{ height: "500px" }}></div>;
+  const handleSendMessage = async () => {
+    if (!newMessage) return;
+  
+    // Replace with actual message sending logic using your chat library (Socket.IO)
+    const message = { content: newMessage, sender: user.name }; // Replace 'CurrentUser' with actual username
+  
+    try {
+      const socket = io(config.apiUrl); // Replace with your server address
+      socket.emit('send-message', message); // Emit message to server
+      setMessages([...messages, message]); // Add message to local state for immediate UI update
+      setNewMessage(''); // Clear the input field
+    } catch (error) {
+      console.error('Error sending message:', error); // Handle errors appropriately
+    }
+  };
+  
+
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <List dense>
+          {messages.map((message) => (
+            <ListItem key={message.content}>
+              <ListItemText primary={message.content} secondary={message.sender} />
+            </ListItem>
+          ))}
+        </List>
+      </Grid>
+      <Grid item xs={12}>
+        <TextField fullWidth label="Send a message..." value={newMessage} onChange={(e) => setNewMessage(e.target.value)} />
+        <Button variant="contained" color="primary" onClick={handleSendMessage} disabled={!newMessage}>
+          Send
+        </Button>
+      </Grid>
+    </Grid>
+  );
 };
 
-export default Chat;
+export default FamilyChat

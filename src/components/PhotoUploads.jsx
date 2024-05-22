@@ -1,8 +1,11 @@
+// link to backend
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, IconButton } from '@material-ui/core';
 import { AddAPhoto } from '@material-ui/icons';
 import Dropzone from 'react-dropzone'; // Third-party library for file upload
+import config from '../config.json'
 
 const PhotoUpload = ({ onUploadSuccess }) => {
   const [file, setFile] = useState(null);
@@ -18,7 +21,7 @@ const PhotoUpload = ({ onUploadSuccess }) => {
     formData.append('photo', file);
 
     try {
-      const response = await axios.post('/api/families/upload-photo', formData, {
+      const response = await axios.post(`${config.apiUrl}/families/upload-photo`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
