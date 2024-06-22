@@ -10,7 +10,7 @@ const UserProfilePage = ({ userId }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${config.apiUrl}/users/me`);
+        const response = await axios.get(`${config.apiUrl}/user/me`);
         setUserData(response.data);
       } catch (error) {
         console.error(error); // Handle errors appropriately

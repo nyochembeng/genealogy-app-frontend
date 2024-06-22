@@ -1,12 +1,13 @@
+import { blue, orange } from '@material-ui/core/colors';
 import { createTheme, palette } from '@material-ui/core/styles';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#007bff', // Default blue
+      main: blue[500], // Default blue
     },
     secondary: {
-      main: '#ffc107', // Default orange
+      main: orange[500], // Default orange
     },
   },
   typography: {

@@ -7,7 +7,7 @@ const Header = () => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" noWrap component="div" style={{ flexGrow: 1 }}>
-          Family History App
+          My Loving Family
         </Typography>
         <Button color="inherit" component={Link} to="/profile">Profile</Button>
         <Button color="inherit" component={Link} to="/settings">Settings</Button>

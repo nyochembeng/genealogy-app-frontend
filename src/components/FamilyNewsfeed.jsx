@@ -1,8 +1,7 @@
-// link to backend
-
 import React, { useState, useEffect } from 'react';
 import { Grid, Card, CardContent, Typography, TextField, Button } from '@material-ui/core';
 import axios from 'axios';
+import config from '../config.json'
 
 const FamilyNewsfeed = ({ familyId }) => {
   const [posts, setPosts] = useState([]);
@@ -11,7 +10,7 @@ const FamilyNewsfeed = ({ familyId }) => {
   useEffect(() => {
     const fetchFamilyPosts = async () => {
       try {
-        const response = await axios.get(`/api/families/${familyId}/posts`); // Assuming a dedicated posts endpoint
+        const response = await axios.get(`${config.apiUrl}/family/${familyId}/posts`); // Assuming a dedicated posts endpoint
         setPosts(response.data);
       } catch (error) {
         console.error(error); // Handle errors appropriately
@@ -29,7 +28,7 @@ const FamilyNewsfeed = ({ familyId }) => {
     if (!newPost) return;
 
     try {
-      const response = await axios.post(`/api/families/${familyId}/posts`, { content: newPost });
+      const response = await axios.post(`${config.apiUrl}/families/${familyId}/create-posts`, { content: newPost });
       setPosts([response.data, ...posts]); // Add new post to the beginning of the list
       setNewPost(''); // Clear the new post content
     } catch (error) {

@@ -1,5 +1,3 @@
-// link to backend
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, IconButton } from '@material-ui/core';
